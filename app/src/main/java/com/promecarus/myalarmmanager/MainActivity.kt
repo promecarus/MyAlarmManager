@@ -49,6 +49,19 @@ class MainActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
             )
         }
 
+        binding.btnRepeatingTime.setOnClickListener {
+            val timePickerFragmentRepeat = TimePickerFragment()
+            timePickerFragmentRepeat.show(supportFragmentManager, TIME_PICKER_REPEAT_TAG)
+        }
+
+        binding.btnSetRepeatingAlarm.setOnClickListener {
+            val repeatTime = binding.tvRepeatingTime.text.toString()
+            val repeatMessage = binding.edtRepeatingMessage.text.toString()
+            alarmReceiver.setRepeatingAlarm(
+                this, AlarmReceiver.TYPE_REPEATING, repeatTime, repeatMessage
+            )
+        }
+
         alarmReceiver = AlarmReceiver()
     }
 
@@ -66,7 +79,9 @@ class MainActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         when (tag) {
             TIME_PICKER_ONCE_TAG -> binding.tvOnceTime.text = dateFormat.format(calendar.time)
-            TIME_PICKER_REPEAT_TAG -> {}
+            TIME_PICKER_REPEAT_TAG -> binding.tvRepeatingTime.text =
+                dateFormat.format(calendar.time)
+
             else -> {
             }
         }
