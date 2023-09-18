@@ -62,6 +62,10 @@ class MainActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
             )
         }
 
+        binding.btnCancelRepeatingAlarm.setOnClickListener {
+            alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING)
+        }
+
         alarmReceiver = AlarmReceiver()
     }
 
